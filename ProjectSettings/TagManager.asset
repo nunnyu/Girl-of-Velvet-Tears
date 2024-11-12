@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Portal
+  - Threat
+  - AntiPortal
+  - Lamp
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - AntiPortalLayer
+  - Water
+  - UI
+  - Colliders
+  - PortalY
+  - PortalZ
+  - Stuff
+  - 
+  - 
+  - 
+  - 
+  - Background
+  - PostProcess
+  - IgnorePostProcess
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
