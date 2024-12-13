@@ -137,7 +137,9 @@ public class MovementPlayer : MonoBehaviour {
 			{
 				if(LastOnGroundTime < -0.1f)
                 {
-					// AnimHandler.justLanded = true;
+					// just landed here, so can play audio
+					ManageAudio audiomanager = FindObjectOfType<ManageAudio>();
+        			audiomanager.Play("jump");
                 }
 
 				LastOnGroundTime = Data.coyoteTime; //if so sets the lastGrounded to coyoteTime

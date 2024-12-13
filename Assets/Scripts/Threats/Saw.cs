@@ -7,12 +7,12 @@ public class Saw : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        transform.Rotate(0, 0, 3.5f);
+        transform.Rotate(0, 0, 10f);
     }
 }

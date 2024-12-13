@@ -56,6 +56,8 @@ public class GameOver : MonoBehaviour {
     }
 
     private void SlaughterNoire() {
+        ManageAudio audiomanager = FindObjectOfType<ManageAudio>();
+        audiomanager.Play("death");
         spriteRenderer.color = Color.black;
         setMoving(false);
         hit++;

@@ -102,6 +102,8 @@ public class PlacePortal : MonoBehaviour
             if (Clear("y")) {
                 Yvisible = true;
                 SpawnPortal("y");
+                ManageAudio audiomanager = FindObjectOfType<ManageAudio>();
+        		audiomanager.Play("portal");
             }
         }
 
@@ -109,6 +111,8 @@ public class PlacePortal : MonoBehaviour
             if (Clear("z")) {
                 Zvisible = true;
                 SpawnPortal("z");
+                ManageAudio audiomanager = FindObjectOfType<ManageAudio>();
+        		audiomanager.Play("portal");
             }
         }
     }

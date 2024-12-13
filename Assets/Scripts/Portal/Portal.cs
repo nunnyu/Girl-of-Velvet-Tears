@@ -32,6 +32,8 @@ public class Portal : MonoBehaviour
             if (Vector2.Distance(player.transform.position, transform.position) > 0.6f) {
                 if (player.GetComponent<PlacePortal>().portalAvailable()) {
                     player.transform.position = target.transform.position;
+                    ManageAudio audiomanager = FindObjectOfType<ManageAudio>();
+        		    audiomanager.Play("teleport");
                     playerTeleporting = true;
                 }
             }
