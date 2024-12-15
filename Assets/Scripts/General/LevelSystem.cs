@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelSystem : MonoBehaviour
 {
-    bool gameOver = false;
+    // bool gameOver = false;
     public float restartDelay = .5f;
     // public GameOver gameOverScript;
     public float levelChangeDelay = 0;
