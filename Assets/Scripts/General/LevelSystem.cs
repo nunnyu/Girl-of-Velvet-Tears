@@ -1,4 +1,5 @@
-﻿using Unity.VisualScripting;
+﻿using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,15 +11,49 @@ public class LevelSystem : MonoBehaviour
     public float levelChangeDelay = 0;
     // public Transform light;
     public int currentLevel = 1;
+    private Boolean active; // for audio, so the ding only plays once 
+    public Boolean isGravestone; 
+    private Boolean gravestoneActive;
+    public Boolean isMenu;
 
     void Start() {
         HideAllChildren();
+        active = true;
+        gravestoneActive = true;
+    }
+
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.Space) && isMenu) {
+            NextLevel();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.tag == "Player") {
-            ShowAllChildren();
+            if (active && !isGravestone) {
+                ManageAudio audiomanager = FindObjectOfType<ManageAudio>();
+                audiomanager.Play("ding");
+                active = false;
+                ShowAllChildren();
+            }
+            
+            if (gravestoneActive && isGravestone) {
+                gravestoneActive = false;
+                Destroy(FindObjectOfType<PlayerData>().gameObject);
+                ManageAudio audiomanager = FindObjectOfType<ManageAudio>();
+                audiomanager.Play("jump");
+                audiomanager.Play("death");
+                Invoke("SoundQueue", 0.1f);
+                Invoke("NextLevel", 7.5f);
+            }
         }
+    }
+
+    private void SoundQueue() {
+        ManageAudio audiomanager = FindObjectOfType<ManageAudio>();
+        ShowAllChildren();
+        audiomanager.Play("wind");
+        audiomanager.Stop("background1");
     }
 
     // Function to hide all child objects
@@ -43,31 +78,9 @@ public class LevelSystem : MonoBehaviour
         }
     }
 
-
-    // public void EndGame() {
-    //     if (gameOver == false) {
-    //         gameOver = true;
-    //         // Debug.Log("restart");
-    //         // Invoke("Restart", restartDelay);
-    //         // gameOverScript.setNoireSpawn(transform.position.x, transform.position.y + .25f); 
-    //     }
-    // }
-
-    // private void OnTriggerEnter2D(Collider2D other) {
-    //     if (other.tag == "Player") {
-    //         Debug.Log("next level");
-    //         Invoke("nextLevel", levelChangeDelay);
-            
-    //     }
-    // }
-
-    // private void Restart() {
-        // gameOverScript.levelStart();
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().name); // reloads the current scene
-    // }
-
-    // private void nextLevel() {
-    //     currentLevel++;
-    //     SceneManager.LoadScene("Stage" + currentLevel);
-    // }
+    private void NextLevel() {
+        currentLevel++;
+        SceneManager.LoadScene("Stage" + currentLevel);
+        Debug.Log("Stage" + currentLevel);
+    }
 }

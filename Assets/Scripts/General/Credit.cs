@@ -1,6 +1,18 @@
 /*
 
-https://opengameart.org/content/battle-music-the-battle-of-atheria
-https://creativecommons.org/licenses/by/3.0/
+~ Menu Music ~
+Author: nene
+"Boss Battle 10 Metal"
+
+~ Closing Music~
+Author: nene
+"Boss Battle 7"
+
+~ Music Box ~ 
+Author: kim lightyear
+
+~ Background Music ~
+Author: nene
+"Boss Battle 6 Metal Alternative"
 
 */

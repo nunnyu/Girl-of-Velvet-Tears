@@ -103,6 +103,8 @@ MonoBehaviour:
   restartDelay: 0.5
   levelChangeDelay: 0
   currentLevel: 1
+  isGravestone: 0
+  isMenu: 0
 --- !u!50 &4187076636413087806
 Rigidbody2D:
   serializedVersion: 4
