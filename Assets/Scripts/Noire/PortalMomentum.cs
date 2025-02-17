@@ -13,29 +13,32 @@ public class PortalMomentum : MonoBehaviour {
     public Animator animator;
     private float powerX;
     private float powerY;
+    private bool isTeleporting;
+    private float moveInput;
 
-    // ok this is lazy as heck but this method is also the same timer that prevents the destruction of portals mid teleport
     private void handlePlayerTPAnimation() {
         animator.SetBool("Teleported", false);
         canDestroy = false;
     }
 
     void Update() {
-        // animation stuff
-        if (portalY.GetComponent<Portal>().playerIsTeleporting() || portalZ.GetComponent<Portal>().playerIsTeleporting()) {
+        // Handle animation
+        isTeleporting = portalY.GetComponent<Portal>().playerIsTeleporting() || portalZ.GetComponent<Portal>().playerIsTeleporting();
+        moveInput = Input.GetAxisRaw("Horizontal");
+
+        if (isTeleporting) {
             animator.SetBool("Teleported", true);
             Invoke("handlePlayerTPAnimation", .25f);
             canDestroy = true;
         }
-        
-        float moveInput = Input.GetAxisRaw("Horizontal");
-        bool isTeleporting = portalY.GetComponent<Portal>().playerIsTeleporting() || portalZ.GetComponent<Portal>().playerIsTeleporting();
-        var yVel = rb.velocity.y;
-        var xVel = rb.velocity.x;
-        // print("jumping: " + movementScript.IsJumping /*+ "  y velocity: " + yVel*/);
-        powerX = -1f * yVel * portalPowerScalingX;
-        powerY = -1f * yVel * portalPowerScalingY;
+    }
+
+    void FixedUpdate() { 
         if (isTeleporting) {
+            float yVel = rb.velocity.y;
+            powerX = -1f * yVel * portalPowerScalingX;
+            powerY = -1f * yVel * portalPowerScalingY;
+
             if (moveInput > 0) {
                 addForce("right");
                 if (!movementScript.IsJumping) {
@@ -51,13 +54,12 @@ public class PortalMomentum : MonoBehaviour {
     }
 
     void addForce(string direction) {
-        if (direction.Equals("up"))
-            rb.AddForce(powerY * Vector2.up, ForceMode2D.Force);
-        if (direction.Equals("down"))
-            rb.AddForce(powerY * Vector2.down, ForceMode2D.Force);
-        if (direction.Equals("left"))
-            rb.AddForce(powerX * Vector2.left, ForceMode2D.Force);
-        if (direction.Equals("right"))
-            rb.AddForce(powerX * Vector2.right, ForceMode2D.Force);
+        Vector2 force = Vector2.zero;
+        if (direction.Equals("up")) force = powerY * Vector2.up;
+        if (direction.Equals("down")) force = powerY * Vector2.down;
+        if (direction.Equals("left")) force = powerX * Vector2.left;
+        if (direction.Equals("right")) force = powerX * Vector2.right;
+
+        rb.AddForce(force * Time.fixedDeltaTime, ForceMode2D.Impulse);
     }
 }

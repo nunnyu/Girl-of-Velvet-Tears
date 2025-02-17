@@ -11,7 +11,7 @@ public class GameOver : MonoBehaviour {
     public Animator animator;
     public MovementPlayer playerMovement;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    private Vector2 spawnPoint;
+    private Vector2 spawnPoint = new Vector2(-3, 1.6f);
     private Color originalColor;
     private int hit; // threats hit; so if she hits a threat while in the death animation she doesn't die again cuz she's already dead
 
